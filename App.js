@@ -1,14 +1,10 @@
 import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  View,
-  Button,
-  Text,
-} from 'react-native';
+import {Button, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {connect} from 'react-redux';
-import {changeCount, resetCount, increment} from './actions/CountActions';
+import {changeCount, getNews, increment, resetCount} from './actions/CountActions';
 import {bindActionCreators} from 'redux';
+import Loading from './containers/Loading';
+import NewsItem from './containers/NewsItems';
 
 
 class App extends Component {
@@ -30,6 +26,11 @@ class App extends Component {
     changeCountAction.resetCount();
   }
 
+  getNews() {
+    let {changeCountAction} = this.props;
+    changeCountAction.getNews();
+  }
+
   render() {
     const {count} = this.props;
     console.log(this.props);
@@ -49,6 +50,12 @@ class App extends Component {
             title="reset"
             onPress={() => this.resetCount()}
           />
+          <Button
+            title="get news"
+            onPress={() => this.getNews()}
+          />
+          <Loading/>
+          <NewsItem/>
         </View>
       </SafeAreaView>
     );
@@ -72,7 +79,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return ({
-    changeCountAction: bindActionCreators({changeCount, resetCount, increment}, dispatch),
+    changeCountAction: bindActionCreators({changeCount, resetCount, increment, getNews}, dispatch),
   });
 };
 

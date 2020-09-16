@@ -22,6 +22,17 @@ const countReducer = (state = INITIAL_STATE, action) => {
         ...state,
         count: action.payload - 1,
       };
+    case 'GET_NEWS':
+      return {
+        ...state,
+        loading: true
+      };
+    case 'NEWS_RECEIVED':
+      return {
+        ...state,
+        news: action.payload,
+        loading: false
+      };
     default:
       return state;
   }

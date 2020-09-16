@@ -20,3 +20,7 @@ export const increment = count => {
     payload: count,
   };
 };
+
+export const getNews = () => ({
+  type: 'GET_NEWS',
+});
